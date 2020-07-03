@@ -1,0 +1,1513 @@
+ASCII (American Standard Code for Information Interchange) for the United States.
+ISO 8859-1 for Western European Language.
+KOI-8 for Russian.
+GB18030 and BIG-5 for chinese, and so on.
+use temp var for easy cal
+
+//rotatae
+class RotateRight {    
+ public static void main(String[] args) {    
+        //Initialize array     
+        int [] arr = new int [] {1, 2, 3, 4, 5};     
+        //n determine the number of times an array should be rotated.    
+        int n = 3;    
+           
+        //Displays original array    
+        System.out.println("Original array: ");    
+        for (int i = 0; i < arr.length; i++) {     
+            System.out.print(arr[i] + " ");     
+        }      
+            
+        //Rotate the given array by n times toward right    
+        for(int i = 0; i < n; i++){    
+            int j, last;    
+            //Stores the last element of array    
+            last = arr[arr.length-1];    
+            
+            for(j = arr.length-1; j > 0; j--){    
+                //Shift element of array by one    
+                arr[j] = arr[j-1];    
+            }    
+            //Last element of array will be added to the start of array.    
+            arr[0] = last;    
+        }    
+        
+        System.out.println();    
+            
+        //Displays resulting array after rotation    
+        System.out.println("Array after right rotation: ");    
+        for(int i = 0; i< arr.length; i++){    
+            System.out.print(arr[i] + " ");    
+        }    
+    }    
+}    
+//sorting
+public class SortAsc {    
+    public static void main(String[] args) {        
+            
+        //Initialize array     
+        int [] arr = new int [] {5, 2, 8, 7, 1};     
+        int temp = 0;    
+            
+        //Displaying elements of original array    
+        System.out.println("Elements of original array: ");    
+        for (int i = 0; i < arr.length; i++) {     
+            System.out.print(arr[i] + " ");    
+        }    
+            
+        //Sort the array in ascending order    
+        for (int i = 0; i < arr.length; i++) {     
+            for (int j = i+1; j < arr.length; j++) {     
+               if(arr[i] > arr[j]) {    
+                   temp = arr[i];    
+                   arr[i] = arr[j];    
+                   arr[j] = temp;    
+               }     
+            }     
+        }    
+          
+        System.out.println();    
+            
+        //Displaying elements of array after sorting    
+        System.out.println("Elements of array sorted in ascending order: ");    
+        for (int i = 0; i < arr.length; i++) {     
+            System.out.print(arr[i] + " ");    
+        }    
+    }    
+}    
+//classclass Student{  
+ int rollno;  
+ String name;  
+ void insertRecord(int r, String n){  
+  rollno=r;  
+  name=n;  
+ }  
+ void displayInformation(){System.out.println(rollno+" "+name);}  
+}  
+class TestStudent4{  
+ public static void main(String args[]){  
+  Student s1=new Student();  
+  Student s2=new Student();  
+  s1.insertRecord(111,"Karan");  
+  s2.insertRecord(222,"Aryan");  
+  s1.displayInformation();  
+  s2.displayInformation();  
+ }  
+}  
+//jdbc conn
+import java.sql.*;  
+class OracleCon{  
+public static void main(String args[]){  
+try{  
+//step1 load the driver class  
+Class.forName("oracle.jdbc.driver.OracleDriver");  
+  
+//step2 create  the connection object  
+Connection con=DriverManager.getConnection(  
+"jdbc:oracle:thin:@localhost:1521:xe","system","oracle");  
+  
+//step3 create the statement object  
+Statement stmt=con.createStatement();  
+  
+//step4 execute query  
+ResultSet rs=stmt.executeQuery("select * from emp");  
+while(rs.next())  
+System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));  
+  
+//step5 close the connection object  
+con.close();  
+  
+}catch(Exception e){ System.out.println(e);}  
+  
+}  
+}  
+//trees all programs
+import java.util.LinkedList;    
+import java.util.Queue;    
+     
+public class DiffOddEven {    
+        
+    //Represent a node of binary tree    
+    public static class Node{    
+        int data;    
+        Node left;    
+        Node right;    
+            
+        public Node(int data){    
+            //Assign data to the new node, set left and right children to null    
+            this.data = data;    
+            this.left = null;    
+            this.right = null;    
+            }    
+        }    
+        
+    //Represent the root of binary tree    
+    public Node root;    
+      
+    public DiffOddEven(){    
+        root = null;    
+    }    
+     
+    //difference() will calculate the difference between sum of odd and even levels of binary tree    
+    public int difference() {    
+          int oddLevel = 0, evenLevel = 0, diffOddEven = 0;    
+              
+          //Variable nodesInLevel keep tracks of number of nodes in each level    
+          int nodesInLevel = 0;    
+              
+          //Variable currentLevel keep track of level in binary tree    
+          int currentLevel = 0;    
+              
+          //Queue will be used to keep track of nodes of tree level-wise    
+          Queue<Node> queue = new LinkedList<Node>();    
+              
+          //Check if root is null    
+          if(root == null) {    
+              System.out.println("Tree is empty");    
+              return 0;    
+          }    
+          else {    
+              //Add root node to queue as it represents the first level    
+              queue.add(root);    
+              currentLevel++;    
+                  
+              while(queue.size() != 0) {    
+                      
+                  //Variable nodesInLevel will hold the size of queue i.e. number of elements in queue    
+                  nodesInLevel = queue.size();    
+                      
+                  while(nodesInLevel > 0) {    
+                      Node current = queue.remove();    
+                          
+                    //Checks if currentLevel is even or not.    
+                      if(currentLevel % 2 == 0)    
+                          //If level is even, add nodes's to variable evenLevel    
+                          evenLevel += current.data;    
+                      else    
+                          //If level is odd, add nodes's to variable oddLevel    
+                          oddLevel += current.data;    
+                          
+                      //Adds left child to queue    
+                      if(current.left != null)    
+                          queue.add(current.left);    
+                      //Adds right child to queue    
+                      if(current.right != null)     
+                          queue.add(current.right);    
+                     nodesInLevel--;    
+                  }    
+                  currentLevel++;    
+              }    
+              //Calculates difference between oddLevel and evenLevel    
+              diffOddEven = Math.abs(oddLevel - evenLevel);    
+          }    
+          return diffOddEven;    
+      }    
+      
+    public static void main (String[] args) {    
+            
+        DiffOddEven bt = new DiffOddEven();    
+        //Add nodes to the binary tree    
+        bt.root = new Node(1);    
+        bt.root.left = new Node(2);    
+        bt.root.right = new Node(3);    
+        bt.root.left.left = new Node(4);    
+        bt.root.right.left = new Node(5);    
+        bt.root.right.right = new Node(6);    
+        
+        //Display the difference between sum of odd level and even level nodes    
+        System.out.println("Difference between sum of odd level and even level nodes: " + bt.difference());    
+}    
+}   
+
+Difference between sum of odd level and even level nodes:
+//in order traversal and deletion
+public class BinarySearchTree {  
+  
+    //Represent a node of binary tree  
+    public static class Node{  
+        int data;  
+        Node left;  
+        Node right;  
+  
+        public Node(int data){  
+            //Assign data to the new node, set left and right children to null  
+            this.data = data;  
+            this.left = null;  
+            this.right = null;  
+        }  
+      }  
+  
+      //Represent the root of binary tree  
+      public Node root;  
+  
+      public BinarySearchTree(){  
+          root = null;  
+      }  
+  
+      //insert() will add new node to the binary search tree  
+      public void insert(int data) {  
+          //Create a new node  
+          Node newNode = new Node(data);  
+  
+          //Check whether tree is empty  
+          if(root == null){  
+              root = newNode;  
+              return;  
+            }  
+          else {  
+              //current node point to root of the tree  
+              Node current = root, parent = null;  
+  
+              while(true) {  
+                  //parent keep track of the parent node of current node.  
+                  parent = current;  
+  
+                  //If data is less than current's data, node will be inserted to the left of tree  
+                  if(data < current.data) {  
+                      current = current.left;  
+                      if(current == null) {  
+                          parent.left = newNode;  
+                          return;  
+                      }  
+                  }  
+                  //If data is greater than current's data, node will be inserted to the right of tree  
+                  else {  
+                      current = current.right;  
+                      if(current == null) {  
+                          parent.right = newNode;  
+                          return;  
+                      }  
+                  }  
+              }  
+          }  
+      }  
+  
+      //minNode() will find out the minimum node  
+      public Node minNode(Node root) {  
+          if (root.left != null)  
+              return minNode(root.left);  
+          else  
+              return root;  
+      }  
+  
+      //deleteNode() will delete the given node from the binary search tree  
+      public Node deleteNode(Node node, int value) {  
+          if(node == null){  
+              return null;  
+           }  
+          else {  
+              //value is less than node's data then, search the value in left subtree  
+              if(value < node.data)  
+                  node.left = deleteNode(node.left, value);  
+  
+              //value is greater than node's data then, search the value in right subtree  
+              else if(value > node.data)  
+                  node.right = deleteNode(node.right, value);  
+  
+              //If value is equal to node's data that is, we have found the node to be deleted  
+              else {  
+                  //If node to be deleted has no child then, set the node to null  
+                  if(node.left == null && node.right == null)  
+                      node = null;  
+  
+                  //If node to be deleted has only one right child  
+                  else if(node.left == null) {  
+                      node = node.right;  
+                  }  
+  
+                  //If node to be deleted has only one left child  
+                  else if(node.right == null) {  
+                      node = node.left;  
+                  }  
+  
+                  //If node to be deleted has two children node  
+                  else {  
+                      //then find the minimum node from right subtree  
+                      Node temp = minNode(node.right);  
+                      //Exchange the data between node and temp  
+                      node.data = temp.data;  
+                      //Delete the node duplicate node from right subtree  
+                      node.right = deleteNode(node.right, temp.data);  
+                  }  
+              }  
+              return node;  
+          }  
+      }  
+  
+      //inorder() will perform inorder traversal on binary search tree  
+      public void inorderTraversal(Node node) {  
+  
+          //Check whether tree is empty  
+          if(root == null){  
+              System.out.println("Tree is empty");  
+              return;  
+           }  
+          else {  
+  
+              if(node.left!= null)  
+                  inorderTraversal(node.left);  
+              System.out.print(node.data + " ");  
+              if(node.right!= null)  
+                  inorderTraversal(node.right);  
+  
+          }  
+      }  
+  
+      public static void main(String[] args) {  
+  
+          BinarySearchTree bt = new BinarySearchTree();  
+          //Add nodes to the binary tree  
+          bt.insert(50);  
+          bt.insert(30);  
+          bt.insert(70);  
+          bt.insert(60);  
+          bt.insert(10);  
+          bt.insert(90);  
+  
+          System.out.println("Binary search tree after insertion:");  
+          //Displays the binary tree  
+          bt.inorderTraversal(bt.root);  
+  
+          Node deletedNode = null;  
+          //Deletes node 90 which has no child  
+          deletedNode = bt.deleteNode(bt.root, 90);  
+          System.out.println("\nBinary search tree after deleting node 90:");  
+          bt.inorderTraversal(bt.root);  
+  
+          //Deletes node 30 which has one child  
+          deletedNode = bt.deleteNode(bt.root, 30);  
+          System.out.println("\nBinary search tree after deleting node 30:");  
+          bt.inorderTraversal(bt.root);  
+  
+          //Deletes node 50 which has two children  
+          deletedNode = bt.deleteNode(bt.root, 50);  
+          System.out.println("\nBinary search tree after deleting node 50:");  
+          bt.inorderTraversal(bt.root);  
+      }  
+}  
+//binary tree to binary search treeimport java.util.Arrays;  
+  
+public class ConvertBTtoBST {  
+  
+    //Represent a node of binary tree  
+    public static class Node{  
+        int data;  
+        Node left;  
+        Node right;  
+  
+        public Node(int data){  
+            //Assign data to the new node, set left and right children to null  
+            this.data = data;  
+            this.left = null;  
+            this.right = null;  
+            }  
+        }  
+  
+    //Represent the root of binary tree  
+    public Node root;  
+  
+    int[] treeArray;  
+    int index = 0;  
+  
+    public ConvertBTtoBST(){  
+        root = null;  
+    }  
+  
+    //convertBTBST() will convert a binary tree to binary search tree  
+    public Node convertBTBST(Node node) {  
+  
+        //Variable treeSize will hold size of tree  
+        int treeSize = calculateSize(node);  
+        treeArray = new int[treeSize];  
+  
+        //Converts binary tree to array  
+        convertBTtoArray(node);  
+  
+          //Sort treeArray  
+        Arrays.sort(treeArray);  
+  
+        //Converts array to binary search tree  
+        Node d = createBST(0, treeArray.length -1);  
+        return d;  
+    }  
+  
+    //calculateSize() will calculate size of tree  
+    public int calculateSize(Node node)  
+    {  
+        int size = 0;  
+        if (node == null)  
+         return 0;  
+        else {  
+            size = calculateSize (node.left) + calculateSize (node.right) + 1;  
+            return size;  
+        }  
+    }  
+  
+    //convertBTtoArray() will convert the given binary tree to its corresponding array representation  
+    public void convertBTtoArray(Node node) {  
+        //Check whether tree is empty  
+        if(root == null){  
+            System.out.println("Tree is empty");  
+            return;  
+        }  
+        else {  
+            if(node.left != null)  
+                convertBTtoArray(node.left);  
+            //Adds nodes of binary tree to treeArray  
+            treeArray[index] = node.data;  
+            index++;  
+            if(node.right != null)  
+                convertBTtoArray(node.right);  
+            }  
+        }  
+  
+    //createBST() will convert array to binary search tree  
+    public Node createBST(int start, int end) {  
+  
+        //It will avoid overflow  
+        if (start > end) {  
+            return null;  
+        }  
+  
+        //Variable will store middle element of array and make it root of binary search tree  
+        int mid = (start + end) / 2;  
+        Node node = new Node(treeArray[mid]);  
+  
+        //Construct left subtree  
+        node.left = createBST(start, mid - 1);  
+  
+        //Construct right subtree  
+        node.right = createBST(mid + 1, end);  
+  
+        return node;  
+    }  
+  
+    //inorder() will perform inorder traversal on binary search tree  
+    public void inorderTraversal(Node node) {  
+  
+        //Check whether tree is empty  
+        if(root == null){  
+            System.out.println("Tree is empty");  
+            return;  
+           }  
+        else {  
+  
+            if(node.left!= null)  
+                inorderTraversal(node.left);  
+            System.out.print(node.data + " ");  
+            if(node.right!= null)  
+                inorderTraversal(node.right);  
+  
+          }  
+      }  
+  
+    public static void main(String[] args) {  
+  
+        ConvertBTtoBST bt = new ConvertBTtoBST();  
+        //Add nodes to the binary tree  
+        bt.root = new Node(1);  
+        bt.root.left = new Node(2);  
+        bt.root.right = new Node(3);  
+        bt.root.left.left = new Node(4);  
+        bt.root.left.right = new Node(5);  
+        bt.root.right.left = new Node(6);  
+        bt.root.right.right = new Node(7);  
+  
+        //Display given binary tree  
+        System.out.println("Inorder representation of binary tree: ");  
+        bt.inorderTraversal(bt.root);  
+  
+        //Converts binary tree to corresponding binary search tree  
+        Node bst = bt.convertBTBST(bt.root);  
+  
+        //Display corresponding binary search tree  
+        System.out.println("\nInorder representation of resulting binary search tree: ");  
+        bt.inorderTraversal(bst);  
+      }  
+}  
+//all leaves are at same levelpublic class LeafLevel {  
+  
+    //Represent a node of binary tree  
+    public static class Node{  
+        int data;  
+        Node left;  
+        Node right;  
+  
+        public Node(int data){  
+            //Assign data to the new node, set left and right children to null  
+            this.data = data;  
+            this.left = null;  
+            this.right = null;  
+            }  
+        }  
+  
+    //Represent the root of binary tree  
+    public Node root;  
+  
+    //It will store level of first encountered leaf  
+    public static int level = 0;  
+  
+    public LeafLevel(){  
+        root = null;  
+    }  
+  
+    //isSameLevel() will check whether all leaves of the binary tree is at same level or not  
+    public boolean isSameLevel(Node temp, int currentLevel ) {  
+  
+        //Check whether tree is empty  
+        if(root == null){  
+          System.out.println("Tree is empty");  
+          return true;  
+        }  
+        else {  
+            //Checks whether node is null  
+            if(temp==null)  
+                return true;  
+  
+            if(temp.left == null && temp.right == null) {  
+                //If first leaf is encountered, set level to current level  
+                if(level == 0) {  
+                    level = currentLevel ;  
+                    return true;  
+                }  
+                //Checks whether the other leaves are at same level of that of first leaf  
+                else  
+                   return (level == currentLevel) ;  
+             }  
+  
+            //Checks for leaf node in left and right subtree recursively.  
+            return  (isSameLevel(temp.left, currentLevel + 1) && isSameLevel(temp.right, currentLevel + 1)) ;  
+         }  
+    }  
+  
+    public static void main (String[] args) {  
+  
+        LeafLevel bt = new LeafLevel();  
+        //Add nodes to the binary tree  
+        bt.root = new Node(1);  
+        bt.root.left = new Node(2);  
+        bt.root.right = new Node(3);  
+        bt.root.left.left = new Node(4);  
+        bt.root.right.left = new Node(5);  
+        bt.root.right.right = new Node(6);  
+  
+        //Checks whether all leaves of given binary tree is at same level  
+        if(bt.isSameLevel(bt.root, 1))  
+            System.out.println("All leaves are at same level");  
+        else  
+            System.out.println("All leaves are not at same level");  
+  }  
+}  
+//trees aare identical
+public class IdenticalTrees {  
+  
+      //Represent the node of the binary tree  
+      public static class Node{  
+        int data;  
+        Node left;  
+        Node right;  
+  
+        //Assign data to the new node, set left and right children to null  
+        public Node(int data){  
+          this.data = data;  
+          this.left = null;  
+          this.right = null;  
+        }  
+      }  
+  
+      //Represent the root of the binary tree  
+      public Node root;  
+  
+      public IdenticalTrees(){  
+        root = null;  
+      }  
+  
+      //areIdenticalTrees() finds whether two trees are identical or not  
+      public static boolean areIdenticalTrees(Node root1, Node root2) {  
+  
+          //Checks if both the trees are empty  
+          if(root1 == null && root2 == null)  
+              return true;  
+  
+          //Trees are not identical if root of only one tree is null thus, return false  
+          if(root1 == null && root2 == null)  
+              return true;  
+  
+          //If both trees are not empty, check whether the data of the nodes is equal  
+          //Repeat the steps for left subtree and right subtree  
+          if(root1 != null  && root2 != null) {  
+  
+              return ((root1.data == root2.data) &&  
+                      (areIdenticalTrees(root1.left, root2.left)) &&  
+                      (areIdenticalTrees(root1.right, root2.right)));  
+          }  
+          return false;  
+      }  
+  
+  
+      public static void main(String[] args) {  
+  
+        //Adding nodes to the first binary tree  
+        IdenticalTrees bt1 = new IdenticalTrees();  
+        bt1.root = new Node(1);  
+        bt1.root.left = new Node(2);  
+        bt1.root.right = new Node(3);  
+        bt1.root.left.left = new Node(4);  
+        bt1.root.right.left = new Node(5);  
+        bt1.root.right.right = new Node(6);  
+  
+        //Adding nodes to the second binary tree  
+          IdenticalTrees bt2 = new IdenticalTrees();  
+          bt2.root = new Node(1);  
+          bt2.root.left = new Node(2);  
+          bt2.root.right = new Node(3);  
+          bt2.root.left.left = new Node(4);  
+          bt2.root.right.left = new Node(5);  
+          bt2.root.right.right = new Node(6);  
+  
+          //Displays whether both the trees are identical or not  
+           if(areIdenticalTrees(bt1.root, bt2.root))  
+             System.out.println("Both the binary trees are identical");  
+         else  
+             System.out.println("Both the binary trees are not identical");  
+        }  
+}  
+//max width
+import java.util.LinkedList;  
+import java.util.Queue;  
+  
+public class BinaryTree {  
+  
+      //Represent the node of binary tree  
+      public static class Node{  
+        int data;  
+        Node left;  
+        Node right;  
+  
+        public Node(int data){  
+          //Assign data to the new node, set left and right children to null  
+          this.data = data;  
+          this.left = null;  
+          this.right = null;  
+        }  
+      }  
+  
+      //Represent the root of binary tree  
+      public Node root;  
+  
+      public BinaryTree(){  
+        root = null;  
+      }  
+  
+      //findMaximumWidth() will find out the maximum width of the given binary tree  
+      public int findMaximumWidth() {  
+          int maxWidth = 0;  
+  
+          //Variable nodesInLevel keep tracks of number of nodes in each level  
+          int nodesInLevel = 0;  
+          //queue will be used to keep track of nodes of tree level-wise  
+          Queue<Node> queue = new LinkedList<Node>();  
+  
+          //Check if root is null, then width will be 0  
+          if(root == null) {  
+              System.out.println("Tree is empty");  
+              return 0;  
+          }  
+          else {  
+              //Add root node to queue as it represents the first level  
+              queue.add(root);  
+  
+              while(queue.size() != 0) {  
+  
+                  //Variable nodesInLevel will hold the size of queue i.e. number of elements in queue  
+                  nodesInLevel = queue.size();  
+                  //maxWidth will hold maximum width.  
+                  //If nodesInLevel is greater than maxWidth then, maxWidth will hold the value of nodesInLevel  
+                  maxWidth = Math.max(maxWidth, nodesInLevel);  
+  
+                  //If variable nodesInLevel contains more than one node  
+                  //then, for each node, we'll add left and right child of the node to the queue  
+                  while(nodesInLevel > 0) {  
+                     Node current = queue.remove();  
+                     if(current.left != null)  
+                         queue.add(current.left);  
+                     if(current.right != null)  
+                         queue.add(current.right);  
+                     nodesInLevel--;  
+                  }  
+              }  
+          }  
+          return maxWidth;  
+      }  
+  
+      public static void main(String[] args) {  
+  
+          BinaryTree bt = new BinaryTree();  
+          //Add nodes to the binary tree  
+          bt.root = new Node(1);  
+          bt.root.left = new Node(2);  
+          bt.root.right = new Node(3);  
+          bt.root.left.left = new Node(4);  
+          bt.root.left.right = new Node(5);  
+          bt.root.right.left = new Node(6);  
+          bt.root.right.right = new Node(7);  
+          bt.root.left.left.left = new Node(8);  
+  
+          //Display the maximum width of given tree  
+          System.out.println("Maximum width of the binary tree: " + bt.findMaximumWidth());  
+      }  
+}  
+//largest elementpublic class LargestNode {  
+    //Represent the node of binary tree  
+    public static class Node{  
+        int data;  
+        Node left;  
+        Node right;  
+  
+        public Node(int data){  
+            //Assign data to the new node, set left and right children to null  
+            this.data = data;  
+            this.left = null;  
+            this.right = null;  
+        }  
+     }  
+  
+      //Represent the root of binary tree  
+      public Node root;  
+  
+      public LargestNode(){  
+        root = null;  
+      }  
+  
+      //largestElement() will find out the largest node in the binary tree  
+      public int largestElement(Node temp){  
+          //Check whether tree is empty  
+           if(root == null) {  
+               System.out.println("Tree is empty");  
+               return 0;  
+            }  
+           else{  
+               int leftMax, rightMax;  
+               //Max will store temp's data  
+               int max = temp.data;  
+  
+               //It will find largest element in left subtree  
+               if(temp.left != null){  
+                   leftMax = largestElement(temp.left);  
+                   //Compare max with leftMax and store greater value into max  
+                   max = Math.max(max, leftMax);  
+                }  
+  
+                //It will find largest element in right subtree  
+                if(temp.right != null){  
+                    rightMax = largestElement(temp.right);  
+                    //Compare max with rightMax and store greater value into max  
+                    max = Math.max(max, rightMax);  
+                }  
+                return max;  
+           }  
+      }  
+  
+      public static void main(String[] args) {  
+  
+        LargestNode bt = new LargestNode();  
+        //Add nodes to the binary tree  
+        bt.root = new Node(15);  
+        bt.root.left = new Node(20);  
+        bt.root.right = new Node(35);  
+        bt.root.left.left = new Node(74);  
+        bt.root.right.left = new Node(55);  
+        bt.root.right.right = new Node(6);  
+  
+        //Display largest node in the binary tree  
+        System.out.println("Largest element in the binary tree: " + bt.largestElement(bt.root));  
+      }  
+}  
+//max depth
+public class BinaryTree {  
+  
+    //Represent the node of binary tree  
+    public static class Node{  
+        int data;  
+        Node left;  
+        Node right;  
+  
+        public Node(int data){  
+            //Assign data to the new node, set left and right children to null  
+            this.data = data;  
+            this.left = null;  
+            this.right = null;  
+        }  
+    }  
+  
+    //Represent the root of binary tree  
+    public Node root;  
+    public BinaryTree(){  
+        root = null;  
+    }  
+  
+    //findHeight() will determine the maximum height of the binary tree  
+    public int findHeight(Node temp){  
+        //Check whether tree is empty  
+        if(root == null) {  
+             System.out.println("Tree is empty");  
+            return 0;  
+        }  
+        else {  
+            int leftHeight = 0, rightHeight = 0;  
+  
+            //Calculate the height of left subtree  
+            if(temp.left != null)  
+                leftHeight = findHeight(temp.left);  
+  
+            //Calculate the height of right subtree  
+            if(temp.right != null)  
+                rightHeight = findHeight(temp.right);  
+  
+            //Compare height of left subtree and right subtree  
+            //and store maximum of two in variable max  
+            int max = (leftHeight > rightHeight) ? leftHeight : rightHeight;  
+  
+            //Calculate the total height of tree by adding height of root  
+            return (max + 1);  
+        }  
+     }  
+  
+    public static void main(String[] args) {  
+  
+        BinaryTree bt = new BinaryTree();  
+        //Add nodes to the binary tree  
+        bt.root = new Node(1);  
+        bt.root.left = new Node(2);  
+        bt.root.right = new Node(3);  
+        bt.root.left.left = new Node(4);  
+        bt.root.right.left = new Node(5);  
+        bt.root.right.right = new Node(6);  
+        bt.root.right.right.right= new Node(7);  
+        bt.root.right.right.right.right = new Node(8);  
+  
+        //Display the maximum height of the given binary tree  
+        System.out.println("Maximum height of given binary tree: " + bt.findHeight(bt.root));  
+  }  
+}  
+//max distance elements
+import java.util.ArrayList;  
+  
+public class MaxDistance {  
+  
+    //Represent a node of binary tree  
+    public static class Node{  
+        int data;  
+        Node left;  
+        Node right;  
+  
+        public Node(int data){  
+            //Assign data to the new node, set left and right children to null  
+            this.data = data;  
+            this.left = null;  
+            this.right = null;  
+            }  
+          }  
+  
+    //Represent the root of binary tree  
+    public Node root;  
+  
+    int[] treeArray;  
+    int index = 0;  
+  
+    public MaxDistance(){  
+        root = null;  
+    }  
+  
+    //calculateSize() will calculate size of tree  
+    public int calculateSize(Node node)  
+    {  
+        int size = 0;  
+        if (node == null)  
+         return 0;  
+        else {  
+            size = calculateSize (node.left) + calculateSize (node.right) + 1;  
+            return size;  
+        }  
+    }  
+  
+    //convertBTtoArray() will convert binary tree to its array representation  
+    public void convertBTtoArray(Node node) {  
+        //Check whether tree is empty  
+        if(root == null){  
+            System.out.println("Tree is empty");  
+            return;  
+        }  
+        else {  
+            if(node.left != null)  
+                convertBTtoArray(node.left);  
+            //Adds nodes of binary tree to treeArray  
+            treeArray[index] = node.data;  
+            index++;  
+            if(node.right != null)  
+                convertBTtoArray(node.right);  
+            }  
+    }  
+  
+    //getDistance() will find distance between root and a specific node  
+    public int getDistance(Node temp, int n1) {  
+        if (temp != null) {  
+            int x = 0;  
+            if ((temp.data == n1) || (x = getDistance(temp.left, n1)) > 0  
+                    || (x = getDistance(temp.right, n1)) > 0) {  
+                //x will store the count of number of edges between temp and node n1  
+                return x + 1;  
+            }  
+            return 0;  
+        }  
+        return 0;  
+    }  
+  
+    //lowestCommonAncestor() will find out the lowest common ancestor for nodes node1 and node2  
+    public Node lowestCommonAncestor(Node temp, int node1, int node2) {  
+        if (temp != null) {  
+            //If root is equal to either of node node1 or node2, return root  
+            if (temp.data == node1 || temp.data == node2) {  
+                return temp;  
+            }  
+  
+            //Traverse through left and right subtree  
+            Node left = lowestCommonAncestor(temp.left, node1, node2);  
+            Node right = lowestCommonAncestor(temp.right, node1, node2);  
+  
+            //If node temp has one node(node1 or node2) as left child and one node(node1 or node2) as right child  
+            //Then, return node temp  as lowest common ancestor  
+            if (left != null && right != null) {  
+                return temp;  
+            }  
+  
+            //If nodes node1 and node2 are in left subtree  
+            if (left != null) {  
+                return left;  
+            }  
+            //If nodes node1 and node2 are in right subtree  
+            if (right != null) {  
+                return right;  
+            }  
+        }  
+        return null;  
+    }  
+  
+    //findDistance() will find distance between two given nodes  
+    public int findDistance(int node1, int node2) {  
+        //Calculates distance of first node from root  
+        int d1 = getDistance(root, node1) - 1;  
+        //Calculates distance of second node from root  
+        int d2 = getDistance(root, node2) - 1;  
+  
+        //Calculates lowest common ancestor of both the nodes  
+        Node ancestor = lowestCommonAncestor(root, node1, node2);  
+  
+        //If lowest common ancestor is other than root then, subtract 2 * (distance of root to ancestor)  
+        int d3 = getDistance(root, ancestor.data) - 1;  
+        return (d1 + d2) - 2 * d3;  
+    }  
+  
+    //nodesAtMaxDistance() will display the nodes which are at maximum distance  
+    public void nodesAtMaxDistance(Node node) {  
+        int maxDistance = 0, distance = 0;  
+        ArrayList<Integer> arr = new ArrayList<>();  
+  
+        //Initialize treeArray  
+        int treeSize = calculateSize(node);  
+        treeArray = new int[treeSize];  
+  
+        //Convert binary tree to its array representation  
+        convertBTtoArray(node);  
+  
+        //Calculates distance between all the nodes present in binary tree and stores maximum distance in variable maxDistance  
+        for(int i = 0; i < treeArray.length; i++) {  
+            for(int j = i; j < treeArray.length; j++) {  
+                distance = findDistance(treeArray[i], treeArray[j]);  
+                //If distance is greater than maxDistance then, maxDistance will hold the value of distance  
+                if(distance > maxDistance) {  
+                    maxDistance = distance;  
+                    arr.clear();  
+                    //Add nodes at position i and j to treeArray  
+                    arr.add(treeArray[i]);  
+                    arr.add(treeArray[j]);  
+                }  
+                //If more than one pair of nodes are at maxDistance then, add all pairs to treeArray  
+                else if(distance == maxDistance) {  
+                    arr.add(treeArray[i]);  
+                    arr.add(treeArray[j]);  
+                }  
+            }  
+        }  
+        //Display all pair of nodes which are at maximum distance  
+        System.out.println("Nodes which are at maximum distance: ");  
+        for(int i = 0; i < arr.size(); i = i + 2) {  
+            System.out.println("( " + arr.get(i) + "," + arr.get(i+1) + " )");  
+        }  
+    }  
+  
+    public static void main(String[] args) {  
+  
+        MaxDistance bt = new MaxDistance();  
+        //Add nodes to the binary tree  
+        bt.root = new Node(1);  
+        bt.root.left = new Node(2);  
+        bt.root.right = new Node(3);  
+        bt.root.left.left = new Node(4);  
+        bt.root.left.right = new Node(5);  
+        bt.root.right.left = new Node(6);  
+        bt.root.right.right = new Node(7);  
+        bt.root.right.right.right = new Node(8);  
+        bt.root.right.right.right.left = new Node(9);  
+  
+        //Finds out all the pair of nodes which are at maximum distance  
+        bt.nodesAtMaxDistance(bt.root);  
+      }  
+}  
+//smallest element
+public class SmallestNode {  
+      //Represent the node of binary tree  
+      public static class Node{  
+        int data;  
+        Node left;  
+        Node right;  
+  
+        public Node(int data){  
+            //Assign data to the new node, set left and right children to null  
+            this.data = data;  
+            this.left = null;  
+            this.right = null;  
+        }  
+      }  
+  
+      //Represent the root of binary tree  
+      public Node root;  
+  
+      public SmallestNode(){  
+          root = null;  
+      }  
+  
+      //smallestElement() will find out the smallest node in the binary tree  
+      public int smallestElement(Node temp){  
+          //Check whether tree is empty  
+          if(root == null) {  
+              System.out.println("Tree is empty");  
+              return 0;  
+          }  
+          else {  
+                int leftMin, rightMin;  
+                //Min will store temp's data  
+                int min = temp.data;  
+  
+                //It will find smallest element in left subtree  
+                if(temp.left != null){  
+                  leftMin = smallestElement(temp.left);  
+                  //If min is greater than leftMin then store the value of leftMin into min  
+                  min = Math.min(min, leftMin);  
+                }  
+  
+                //It will find smallest element in right subtree  
+                if(temp.right != null){  
+                  rightMin = smallestElement(temp.right);  
+                  //If min is greater than rightMin then store the value of rightMin into min  
+                  min = Math.min(min, rightMin);  
+                }  
+                return min;  
+          }  
+      }  
+  
+      public static void main(String[] args) {  
+  
+        SmallestNode bt = new SmallestNode();  
+        //Add nodes to the binary tree  
+        bt.root = new Node(4);  
+        bt.root.left = new Node(2);  
+        bt.root.right = new Node(3);  
+        bt.root.left.left = new Node(1);  
+        bt.root.right.left = new Node(5);  
+        bt.root.right.right = new Node(6);  
+  
+        //Display smallest node in the binary tree  
+        System.out.println("Smallest element in the binary tree: " + bt.smallestElement(bt.root));  
+      }  
+}  
+//sum of nodes
+public class SumOfNodes {  
+  
+      //Represent the node of binary tree  
+        public static class Node{  
+        int data;  
+        Node left;  
+        Node right;  
+  
+        public Node(int data){  
+            //Assign data to the new node, set left and right children to null  
+            this.data = data;  
+            this.left = null;  
+            this.right = null;  
+        }  
+      }  
+  
+      //Represent the root of binary tree  
+      public Node root;  
+  
+      public SumOfNodes(){  
+        root = null;  
+      }  
+  
+      //calculateSum() will calculate the sum of all the nodes present in the binary tree  
+      public int calculateSum(Node temp){  
+        int sum, sumLeft, sumRight;  
+        sum = sumRight = sumLeft = 0;  
+  
+        //Check whether tree is empty  
+        if(root == null) {  
+            System.out.println("Tree is empty");  
+            return 0;  
+        }  
+        else {  
+            //Calculate the sum of nodes present in left subtree  
+            if(temp.left != null)  
+                sumLeft = calculateSum(temp.left);  
+  
+            //Calculate the sum of nodes present in right subtree  
+            if(temp.right != null)  
+                sumRight = calculateSum(temp.right);  
+  
+            //Calculate the sum of all nodes by adding sumLeft, sumRight and root node's data  
+            sum = temp.data + sumLeft + sumRight;  
+            return sum;  
+        }  
+      }  
+  
+      public static void main(String[] args) {  
+  
+        SumOfNodes bt = new SumOfNodes();  
+        //Add nodes to the binary tree  
+        bt.root = new Node(5);  
+        bt.root.left = new Node(2);  
+        bt.root.right = new Node(9);  
+        bt.root.left.left = new Node(1);  
+        bt.root.right.left = new Node(8);  
+        bt.root.right.right = new Node(6);  
+  
+        //Display the sum of all the nodes in the given binary tree  
+        System.out.println("Sum of all nodes of binary tree: " + bt.calculateSum(bt.root));  
+      }  
+    }  
+	//BST
+	public class BinarySearchTree {  
+  
+    //Represent the node of binary tree  
+    public static class Node{  
+        int data;  
+        Node left;  
+        Node right;  
+  
+        public Node(int data){  
+            //Assign data to the new node, set left and right children to null  
+            this.data = data;  
+            this.left = null;  
+            this.right = null;  
+            }  
+        }  
+  
+    //Represent the root of binary tree  
+    public Node root;  
+  
+    public BinarySearchTree(){  
+        root = null;  
+    }  
+  
+    //factorial() will calculate the factorial of given number  
+    public int factorial(int num) {  
+        int fact = 1;  
+        if(num == 0)  
+            return 1;  
+        else {  
+            while(num > 1) {  
+                fact = fact * num;  
+                num--;  
+            }  
+            return fact;  
+        }  
+    }  
+  
+    //numOfBST() will calculate the total number of possible BST by calculating Catalan Number for given key  
+    public int numOfBST(int key) {  
+        int catalanNumber = factorial(2 * key)/(factorial(key + 1) * factorial(key));  
+        return catalanNumber;  
+    }  
+  
+    public static void main(String[] args) {  
+  
+        BinarySearchTree bt = new BinarySearchTree();  
+  
+        //Display total number of possible binary search tree with key 5  
+        System.out.println("Total number of possible Binary Search Trees with given key: " + bt.numOfBST(5));  
+      }  
+}  
+//BT using linkedlist
+public class BinarySearchTree {  
+  
+    //Represent the node of binary tree  
+    public static class Node{  
+        int data;  
+        Node left;  
+        Node right;  
+  
+        public Node(int data){  
+            //Assign data to the new node, set left and right children to null  
+            this.data = data;  
+            this.left = null;  
+            this.right = null;  
+            }  
+        }  
+  
+    //Represent the root of binary tree  
+    public Node root;  
+  
+    public BinarySearchTree(){  
+        root = null;  
+    }  
+  
+    //factorial() will calculate the factorial of given number  
+    public int factorial(int num) {  
+        int fact = 1;  
+        if(num == 0)  
+            return 1;  
+        else {  
+            while(num > 1) {  
+                fact = fact * num;  
+                num--;  
+            }  
+            return fact;  
+        }  
+    }  
+  
+    //numOfBST() will calculate the total number of possible BST by calculating Catalan Number for given key  
+    public int numOfBST(int key) {  
+        int catalanNumber = factorial(2 * key)/(factorial(key + 1) * factorial(key));  
+        return catalanNumber;  
+    }  
+  
+    public static void main(String[] args) {  
+  
+        BinarySearchTree bt = new BinarySearchTree();  
+  
+        //Display total number of possible binary search tree with key 5  
+        System.out.println("Total number of possible Binary Search Trees with given key: " + bt.numOfBST(5));  
+      }  
+}  
+//SBST
+public class SearchBinaryTree {  
+  
+      //Represent a node of binary tree  
+      public static class Node{  
+        int data;  
+        Node left;  
+        Node right;  
+  
+        public Node(int data){  
+          //Assign data to the new node, set left and right children to null  
+          this.data = data;  
+          this.left = null;  
+          this.right = null;  
+        }  
+      }  
+  
+      //Represent the root of binary tree  
+      public Node root;  
+  
+      public static boolean flag = false;  
+  
+      public SearchBinaryTree(){  
+        root = null;  
+      }  
+  
+      //searchNode() will search for the particular node in the binary tree  
+      public void searchNode(Node temp, int value){  
+        //Check whether tree is empty  
+        if(root == null){  
+          System.out.println("Tree is empty");  
+        }  
+        else{  
+          //If value is found in the given binary tree then, set the flag to true  
+          if(temp.data == value){  
+            flag = true;  
+               return;  
+          }  
+          //Search in left subtree  
+          if(flag == false && temp.left != null){  
+             searchNode(temp.left, value);  
+          }  
+          //Search in right subtree  
+          if(flag == false && temp.right != null){  
+             searchNode(temp.right, value);  
+          }  
+        }  
+      }  
+  
+      public static void main(String[] args) {  
+  
+        SearchBinaryTree bt = new SearchBinaryTree();  
+        //Add nodes to the binary tree  
+        bt.root = new Node(1);  
+        bt.root.left = new Node(2);  
+        bt.root.right = new Node(3);  
+        bt.root.left.left = new Node(4);  
+        bt.root.right.left = new Node(5);  
+        bt.root.right.right = new Node(6);  
+  
+        //Search for node 5 in the binary tree  
+           bt.searchNode(bt.root, 5);  
+  
+        if(flag)  
+          System.out.println("Element is present in the binary tree");  
+        else  
+          System.out.println("Element is not present in the binary tree");  
+      }  
+    }  
+	//
+	class Employee{  
+    int id;  
+    String name;  
+    float salary;  
+    void insert(int i, String n, float s) {  
+        id=i;  
+        name=n;  
+        salary=s;  
+    }  
+    void display(){System.out.println(id+" "+name+" "+salary);}  
+}  
+public class TestEmployee {  
+public static void main(String[] args) {  
+    Employee e1=new Employee();  
+    Employee e2=new Employee();  
+    Employee e3=new Employee();  
+    e1.insert(101,"ajeet",45000);  
+    e2.insert(102,"irfan",25000);  
+    e3.insert(103,"nakul",55000);  
+    e1.display();  
+    e2.display();  
+    e3.display();  
+}  }
+
+//collection
+Iterator<T> iterator()  
+List <data-type> list1= new ArrayList();  
+List <data-type> list2 = new LinkedList();  
+List <data-type> list3 = new Vector();  
+List <data-type> list4 = new Stack();  
+Set<data-type> s1 = new HashSet<data-type>();  
+Set<data-type> s2 = new LinkedHashSet<data-type>();  
+Set<data-type> s3 = new TreeSet<data-type>(); 
+Queue<String> q1 = new PriorityQueue();  
+Queue<String> q2 = new ArrayDeque();  
+Iterator<T> iterator()  
+SortedSet<data-type> set = new TreeSet();  
+import java.util.*;  
+ public class ArrayListExample1{  
+ public static void main(String args[]){  
+  ArrayList<String> list=new ArrayList<String>();//Creating arraylist    
+      list.add("Mango");//Adding object in arraylist    
+      list.add("Apple");    
+      list.add("Banana");    
+      list.add("Grapes");    
+      //Printing the arraylist object   
+      System.out.println(list);  
+ }  
+}  
+
+//sample for all obj oriented
+import java.util.*;
+class Main{
+    public static void main(String[] args){
+        Scanner s = new Scanner(System.in);
+        int movieId, rating, budget;
+        String director;
+        Movie[] movies = new Movie[4];
+        for(int i=0;i<4;i++){
+            movieId = s.nextInt();s.nextLine();
+            director = s.nextLine();
+            rating = s.nextInt();
+            budget = s.nextInt();
+            movies[i] = new Movie(movieId, director, rating, budget);
+        }
+        s.nextLine();
+        String findDirector = s.nextLine();
+        int findRating = s.nextInt();
+        int findBudget = s.nextInt();
+        int findAvg = findAvgBudgetByDirector(movies, findDirector);
+        if(findAvg > 0){
+            System.out.println(findAvg);
+        }
+        else
+            System.out.println("Sorry - The given director has not directed any movie yet");
+        Movie m = getMovieByRatingBudget(movies, findRating, findBudget);
+        if(m == null)
+            System.out.println("Sorry - No movie available at specified rating and budget requirement");
+        else
+            System.out.println(m.getMovieId());
+    }
+    public static int findAvgBudgetByDirector(Movie[] movies, String director){
+        int sum = 0,count=0;
+        for(int i=0;i<4;i++){
+            if(director.equalsIgnoreCase(movies[i].getDirector())){
+                count++;
+                sum += movies[i].getBudget();
+            }
+        }
+        if(sum>0)
+            return sum/count;
+        else
+            return 0;
+    }
+    public static Movie getMovieByRatingBudget(Movie[] movies, int rating, int budget){
+        Movie m = new Movie();
+        for(int i=0;i<4;i++){
+            if(movies[i].getRating()==rating && movies[i].getBudget()==budget){
+                if(movies[i].getBudget()%movies[i].getRating() == 0){
+                    m = movies[i];
+                    return m;
+                }
+            }
+        }
+        return null;
+    }
+}
+ 
+class Movie{
+    int movieId,rating,budget;
+    String director;
+    Movie(){}
+    Movie(int movieId, String director, int rating, int budget){
+        super();
+        this.movieId = movieId;
+        this.director = director;
+        this.rating = rating;
+        this.budget = budget;
+    }
+    int getMovieId(){
+        return movieId;
+    }
+    String getDirector(){
+        return director;
+    }
+    int getRating(){
+        return rating;
+    }
+    int getBudget(){
+        return budget;
+		
+    }
+}
+
+//mlkit  
+dependencies {
+  // Face features
+  implementation 'com.google.mlkit:face-detection:16.0.0'
+
+  // Text features
+  implementation 'com.google.android.gms:play-services-mlkit-text-recognition:16.0.0'
+}

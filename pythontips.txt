@@ -1,0 +1,265 @@
+import string
+ 
+class Vegetable:
+    def __init__(self, n, p, q):
+        self.name = n
+        self.price = p
+        self.quantity = q
+ 
+class Store:
+    def __init__(self, s, v):
+        self.storeName = s
+        self.vegList = v
+     
+    def categorizeVegetablesAlphabetically(self):
+        self.vegList.sort(key= lambda x: x.name)
+        a = list(string.ascii_lowercase)
+        r = {}
+        for i in a:
+            temp = []
+            for j in self.vegList:
+                if i == j.name[0]:
+                    temp.append(j.name)
+            if len(temp) >0:
+                r[i] = tuple(temp)
+        return r
+ 
+    def filterVegetablesForPriceRange(self, min, max):
+        self.vegList.sort(key= lambda x: x.name)
+        r = []
+        for i in self.vegList:
+            if min <= i.price <= max:
+                r.append(i.name)
+        return r
+ 
+count = int(input())
+t = []
+ 
+for i in range(count):
+    n1 = input()
+    p1 = float(input())
+    q1 = int(input())
+    v = Vegetable(n1.lower(),p1,q1)
+    t.append(v)
+ 
+name = input()
+min1 = float(input())
+max1 = float(input())
+store = Store(name,t)
+catVegAlpha = store.categorizeVegetablesAlphabetically()
+priceList = store.filterVegetablesForPriceRange(min1, max1)
+ 
+for keys, value in catVegAlpha.items():
+    print(keys)
+    for x in value:
+        print(x)
+print(str(min1) + '-' + str(max1))
+if len(priceList) > 0:
+    for x in priceList:
+        print(x)
+else:
+    print("No Vegetable(s) in the given price range")
+	
+	
+//
+import json
+
+# some JSON:
+x =  '{ "name":"John", "age":30, "city":"New York"}'
+
+# parse x:
+y = json.loads(x)
+
+# the result is a Python dictionary:
+print(y["age"])
+//
+import json
+
+# a Python object (dict):
+x = {
+  "name": "John",
+  "age": 30,
+  "city": "New York"
+}
+
+# convert into JSON:
+y = json.dumps(x)//convert to json
+
+# the result is a JSON string:
+print(y)
+//formating
+myorder = "I have a {carname}, it is a {model}."
+print(myorder.format(carname = "Ford", model = "Mustang"))
+uantity = 3
+itemno = 567
+price = 49
+myorder = "I want {0} pieces of item number {1} for {2:.2f} dollars."
+print(myorder.format(quantity, itemno, price))
+quantity = 3
+itemno = 567
+price = 49
+myorder = "I want {} pieces of item number {} for {:.2f} dollars."
+print(myorder.format(quantity, itemno, price))
+//file
+f = open("demofile.txt", "r")
+f.close()
+print(f.readline())//read,read(5)
+for x in f:
+  print(x)//read line by line
+ f = open("demofile2.txt", "a")
+f.write("Now the file has more content!")
+f = open("myfile.txt", "x")//error if file exist
+//os
+import os
+os.rmdir("myfolder")if os.path.exists("demofile.txt"):
+  os.remove("demofile.txt")
+else:
+  print("The file does not exist")
+ os.remove("demofile.txt")
+ 
+ //sql
+ import mysql.connector
+
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="yourusername",
+  password="yourpassword",
+  database="mydatabase"
+)
+
+mycursor = mydb.cursor()
+
+sql = "SELECT \
+  users.name AS user, \
+  products.name AS favorite \
+  FROM users \
+  INNER JOIN products ON users.fav = products.id"
+
+mycursor.execute(sql)
+
+myresult = mycursor.fetchall()
+
+for x in myresult:
+  print(x)
+  
+ //commands
+ sql = "UPDATE customers SET address = 'Canyon 123' WHERE address = 'Valley 345'"
+SELECT * FROM customers LIMIT 5 OFFSET 2
+mycursor.execute(sql)
+
+mydb.commit()
+
+print(mycursor.rowcount, "record(s) affected")
+
+sql = "INSERT INTO customers (name, address) VALUES (%s, %s)"
+val = ("John", "Highway 21")
+mycursor.execute(sql, val)
+val = [
+  ('Peter', 'Lowstreet 4'),
+  ('Amy', 'Apple st 652'),
+  ('Hannah', 'Mountain 21'),
+  ('Michael', 'Valley 345'),
+  ('Sandy', 'Ocean blvd 2'),
+  ('Betty', 'Green Grass 1'),
+  ('Richard', 'Sky st 331'),
+  ('Susan', 'One way 98'),
+  ('Vicky', 'Yellow Garden 2'),
+  ('Ben', 'Park Lane 38'),
+  ('William', 'Central st 954'),
+  ('Chuck', 'Main Road 989'),
+  ('Viola', 'Sideway 1633')
+]
+
+mycursor.executemany(sql, val)
+//mongodb
+import pymongo
+
+myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+mydb = myclient["mydatabase"]
+mycol = mydb["customers"]
+
+mydict = { "name": "John", "address": "Highway 37" }
+
+x = mycol.insert_one(mydict)
+x.inserted_id)
+//many incerting
+import pymongo
+
+myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+mydb = myclient["mydatabase"]
+mycol = mydb["customers"]
+
+mylist = [
+  { "name": "Amy", "address": "Apple st 652"},
+  { "name": "Hannah", "address": "Mountain 21"},
+  { "name": "Michael", "address": "Valley 345"},
+  { "name": "Sandy", "address": "Ocean blvd 2"},
+  { "name": "Betty", "address": "Green Grass 1"},
+  { "name": "Richard", "address": "Sky st 331"},
+  { "name": "Susan", "address": "One way 98"},
+  { "name": "Vicky", "address": "Yellow Garden 2"},
+  { "name": "Ben", "address": "Park Lane 38"},
+  { "name": "William", "address": "Central st 954"},
+  { "name": "Chuck", "address": "Main Road 989"},
+  { "name": "Viola", "address": "Sideway 1633"}
+  { "_id": 1, "name": "John", "address": "Highway 37"},
+]
+
+x = mycol.insert_many(mylist)
+
+#print list of the _id values of the inserted documents:
+print(x.inserted_ids)
+myquery = { "address": { "$regex": "^S" } }
+mydoc = mycol.find(myquery)//mycol.find().sort("name")//mycol.find().sort("name", -1)
+
+for x in mydoc:
+  print(x)
+ 
+ x = mycol.delete_many(myquery)//x = mycol.delete_many({})//all
+
+print(x.deleted_count, " documents deleted.")
+ drop()
+ myquery = { "address": "Valley 345" }
+newvalues = { "$set": { "address": "Canyon 123" } }
+
+mycol.update_one(myquery, newvalues)
+myquery = { "address": { "$regex": "^S" } }
+newvalues = { "$set": { "name": "Minnie" } }
+
+x = mycol.update_many(myquery, newvalues)
+
+print(x.modified_count, "documents updated.")
+ mycol.find().limit(5)
+ 
+//use python reference in https://www.w3schools.com/python/python_ref_exceptions.asp
+//FOR MANY CHEETSHEETS AND QUES USE https://www.hoomanb.com/cs/
+VERY VERY  USEFUL THINGS-- https://github.com/mortennobel/cpp-cheatsheet
+mongodb cheetsheet-https://gist.github.com/bradtraversy/f407d642bdc3b31681bc7e56d95485b6
+all inone js -https://github.com/mbeaudru/modern-js-cheatsheet
+unity cheat-https://www.raywenderlich.com/227-unity-cheat-sheet-and-quick-reference-2018
+sounds-https://gist.github.com/samsheffield/96608e465091069d15fdaea29457ec85
+kubernetes doc-https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+docker -https://github.com/wsargent/docker-cheat-sheet
+arduino ref-https://www.arduino.cc/reference/en/
+scala-https://gist.github.com/heathermiller/2ab9ef36910fdfdd20e9
+//importnat cheatsheets github gist
+1) Github cheatsheet : https://education.github.com/git-cheat-sheet-education.pdf
+2) ML performance improvement cheatsheet : https://s3.amazonaws.com/MLMastery/ml_performance_improvement_cheatsheet.pdf?__s=hspfz83o8wr7xwqyyxpp
+3) William Chen probability cheatsheet : http://www.wzchen.com/probability-cheatsheet/
+4) MongoDb cheatsheet : https://blog.codecentric.de/files/2012/12/MongoDB-CheatSheet-v1_0.pdf
+5) Machine Learning Algo's in python and R cheatsheet : https://www.analyticsvidhya.com/wp-content/uploads/2016/08/MLalgorithms-.pdf
+6) Stastics cheatsheet: http://www.cheat-sheets.org/saved-copy/427513-Statistics-Reference-Cheatsheet.pdf
+7) Machine learning another cheat sheet : http://devzum.com/2015/06/best-machine-learning-cheat-sheets/
+8) R basic cheatsheet: https://www.rstudio.com/wp-content/uploads/2016/10/r-cheat-sheet-3.pdf
+9) R advance cheatsheet: https://www.rstudio.com/wp-content/uploads/2016/02/advancedR.pdf
+10) R regular exp cheatsheet: https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf
+11) Tmux cheatsheet https://gist.github.com/henrik/1967800
+12) Linux Unix cheatsheet http://cheatsheetworld.com/programming/unix-linux-cheat-sheet/
+13) https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Python_Matplotlib_Cheat_Sheet.pdf
+14) https://www.cheatography.com/weidadeyue/cheat-sheets/jupyter-notebook/
+15) https://vim.rtorr.com/
+
+//cheatsheets with ref for allhttps://gist.github.com/devxom/2c76e4ed42e564ac97abfbf8f991be4c
+//che---https://devhints.io/
+android-https://alvinalexander.com/android/android-cheat-sheet-main-concepts/
+android doc-https://developer.android.com/
